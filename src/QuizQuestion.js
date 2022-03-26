@@ -17,10 +17,10 @@ class QuizQuestion extends Component {
                     </p>
                     <section className='buttons'>
                         <ul>
-                            {this.props.quiz_question.answer_options.map((answer_option, index) => {
+                            {this.props.quiz_question.answer_options.map((answer_option, index) => (
                                 <QuizQuestionButton key={index} button_text={answer_option}
                                     clickHandler={this.handleClick.bind(this)} />
-                            })}
+                            ))}
                         </ul>
                     </section>
                 </section>
