@@ -12,30 +12,31 @@ class QuizQuestion extends Component {
 
     handleClick(buttonText) {
         if (buttonText === this.props.quiz_question.answer) {
+            this.setState({ incorrectAnswer: false })
             this.props.showNextQuestionHandler()
-            this.setState(incorrectAnswer ? false : true)
+        } else {
+            this.setState({ incorrectAnswer: true })
+        }
+        render() {
+            return (
+                <main>
+                    {this.state.incorrectAnswer ? <p className='error'>Sorry, that's not right</p> : null}
+                    <section>
+                        <p>
+                            {this.props.quiz_question.instruction_text}
+                        </p>
+                        <section className='buttons'>
+                            <ul>
+                                {this.props.quiz_question.answer_options.map((answer_option, index) => (
+                                    <QuizQuestionButton key={index} button_text={answer_option}
+                                        clickHandler={this.handleClick.bind(this)} />
+                                ))}
+                            </ul>
+                        </section>
+                    </section>
+                </main>
+            )
         }
     }
-    render() {
-        return (
-            <main>
-                {this.state.incorrectAnswer ? <p className='error'>Sorry, that's not right</p> : null}
-                <section>
-                    <p>
-                        {this.props.quiz_question.instruction_text}
-                    </p>
-                    <section className='buttons'>
-                        <ul>
-                            {this.props.quiz_question.answer_options.map((answer_option, index) => (
-                                <QuizQuestionButton key={index} button_text={answer_option}
-                                    clickHandler={this.handleClick.bind(this)} />
-                            ))}
-                        </ul>
-                    </section>
-                </section>
-            </main>
-        )
-    }
-}
 
 export default QuizQuestion
